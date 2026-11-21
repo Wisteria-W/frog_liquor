@@ -1,11 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpusa324kweot"]
+[gd_scene load_steps=4 format=3 uid="uid://dpusa324kweot"]
 
 [ext_resource type="PackedScene" uid="uid://d2m5dx7ffhj07" path="res://Prefabs/Player.tscn" id="1_71exe"]
+[ext_resource type="PackedScene" uid="uid://8k45qvmqn1ob" path="res://Prefabs/Tile_Test.tscn" id="2_3duy7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_08c4p"]
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 4, 4)
+transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -2, 4, 2)
 projection = 1
 size = 5.0
 
@@ -13,3 +16,14 @@ size = 5.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 3, 0)
+
+[node name="Tile" parent="." instance=ExtResource("2_3duy7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="Tile2" parent="." instance=ExtResource("2_3duy7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0, -1)
+
+[node name="MeshInstance3D" parent="Tile2" index="1"]
+material_override = SubResource("StandardMaterial3D_08c4p")
+
+[editable path="Tile2"]

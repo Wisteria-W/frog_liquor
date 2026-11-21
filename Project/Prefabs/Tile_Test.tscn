@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://8k45qvmqn1ob"]
+
+[ext_resource type="Script" path="res://Scripts/tile.gd" id="1_1ydhk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sglrx"]
+size = Vector3(0.35, 2, 0.35)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3difk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8622j"]
+size = Vector3(0.35, 0.35, 0.35)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xdswn"]
+size = Vector3(0.35, 0.35, 0.35)
+
+[node name="Tile" type="Node3D" node_paths=PackedStringArray("mesh")]
+script = ExtResource("1_1ydhk")
+mesh = NodePath("MeshInstance3D")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_sglrx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+material_override = SubResource("StandardMaterial3D_3difk")
+mesh = SubResource("BoxMesh_8622j")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_xdswn")
