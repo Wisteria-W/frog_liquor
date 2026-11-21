@@ -21,12 +21,14 @@ func can_interact() -> bool:
 func consume_ingredient(ingredient: Ingredient) -> bool:
 	if ingredient == null or not can_interact():
 		return false
+	if not _consume(ingredient):
+		return false
 	consumed.append(ingredient)
-	_consume(ingredient)
 	ingredient_consumed.emit(ingredient, self)
 	return true
 
 
 ## Override to define what consuming means (brew, eat, store, ...).
-func _consume(ingredient: Ingredient) -> void:
-	pass
+## Return false to reject the ingredient (nothing is recorded or emitted).
+func _consume(ingredient: Ingredient) -> bool:
+	return true
