@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpusa324kweot"]
+[gd_scene load_steps=6 format=3 uid="uid://dpusa324kweot"]
 
 [ext_resource type="PackedScene" uid="uid://d2m5dx7ffhj07" path="res://Prefabs/Player.tscn" id="1_71exe"]
 [ext_resource type="PackedScene" uid="uid://8k45qvmqn1ob" path="res://Prefabs/Tile_Test.tscn" id="2_3duy7"]
-[ext_resource type="PackedScene" uid="uid://cqajvilli237c" path="res://Prefabs/Managers/Manager_Customer.tscn" id="3_g4m71"]
+[ext_resource type="PackedScene" uid="uid://bgjm6cddibfls" path="res://Prefabs/counter.tscn" id="4_oddpn"]
+[ext_resource type="PackedScene" uid="uid://cm585yncn2ieu" path="res://Prefabs/Mixer.tscn" id="4_w8ggx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_08c4p"]
 
@@ -27,7 +28,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -1)
 [node name="MeshInstance3D" parent="Tile2" index="1"]
 material_override = SubResource("StandardMaterial3D_08c4p")
 
-[node name="CustomerManager" parent="." instance=ExtResource("3_g4m71")]
-customer_spawn_cooldown = 3.0
+[node name="Counter" parent="." instance=ExtResource("4_oddpn")]
+
+[node name="Mixer" parent="." instance=ExtResource("4_w8ggx")]
 
 [editable path="Tile2"]
