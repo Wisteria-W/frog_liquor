@@ -90,7 +90,7 @@ static func color_for_id(id: String) -> Color:
 	match id:
 		"water":
 			return Color(0.2, 0.65, 1.0)
-		"frog_heart":
+		"bug", "frog_heart":
 			return Color(0.2, 0.85, 0.35)
 		"potion_red":
 			return Color(0.9, 0.15, 0.45)

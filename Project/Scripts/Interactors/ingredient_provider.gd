@@ -9,12 +9,19 @@ signal ingredient_provided(ingredient: Ingredient, provider: IngredientProvider)
 @export var ingredient: Ingredient
 @export var single_use: bool = false
 
+const DEFAULT_BUG_SCENES: Array[String] = [
+	"res://Prefabs/Ingridients/Ingridient_01.tscn",
+	"res://Prefabs/Ingridients/Ingridient_02.tscn",
+]
+
 var _used := false
 var _item_cube: MeshInstance3D
 
 
 func _ready() -> void:
-	_item_cube = _create_item_cube(Vector3(0, 0.55, 0))
+	_ensure_bug_scenes()
+	_pick_next_model_scene()
+	_item_cube = _create_item_cube(Vector3(0, 0.5, 0))
 	_update_visual()
 
 
@@ -28,8 +35,10 @@ func interact() -> void:
 	super.interact()
 	if single_use:
 		_used = true
+	var provided := provide_ingredient()
+	_pick_next_model_scene()
 	_update_visual()
-	ingredient_provided.emit(ingredient, self)
+	ingredient_provided.emit(provided, self)
 
 
 func _update_visual() -> void:
@@ -40,7 +49,27 @@ func _update_visual() -> void:
 
 ## The ingredient this provider hands out. Null when none is assigned.
 func provide_ingredient() -> Ingredient:
-	return ingredient
+	if ingredient == null:
+		return null
+	var copy := ingredient.duplicate() as Ingredient
+	copy.model_scene = ingredient.model_scene
+	return copy
+
+
+func _ensure_bug_scenes() -> void:
+	if ingredient == null:
+		return
+	if ingredient.id in ["bug", "frog_heart"] and ingredient.model_scenes.is_empty() and ingredient.model_scene == null:
+		for path in DEFAULT_BUG_SCENES:
+			if ResourceLoader.exists(path):
+				var packed := load(path) as PackedScene
+				if packed != null:
+					ingredient.model_scenes.append(packed)
+
+
+func _pick_next_model_scene() -> void:
+	if ingredient != null and not ingredient.model_scenes.is_empty():
+		ingredient.model_scene = ingredient.model_scenes.pick_random()
 
 
 ## The player picks the provided ingredient up into its ingredient holder.

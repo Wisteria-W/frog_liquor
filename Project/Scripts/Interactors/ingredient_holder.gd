@@ -76,8 +76,9 @@ func peek() -> Ingredient:
 func take_from(provider: IngredientProvider) -> bool:
 	if provider == null or not provider.can_interact() or not can_hold():
 		return false
+	var provided := provider.provide_ingredient()
 	provider.interact()
-	return hold(provider.provide_ingredient())
+	return hold(provided)
 
 
 ## Moves the held ingredient into a consumer (e.g. the mixer).

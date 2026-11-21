@@ -9,11 +9,12 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_08c4p"]
 
-[sub_resource type="Resource" id="Resource_frog_heart"]
+[sub_resource type="Resource" id="Resource_bug"]
 resource_local_to_scene = true
 script = ExtResource("6_ingrd")
-id = "frog_heart"
-display_name = "FROG HEART"
+id = "bug"
+display_name = "BUG"
+model_scenes = Array[PackedScene]([])
 model_scale = Vector3(1, 1, 1)
 model_offset = Vector3(0, 0, 0)
 fallback_color = Color(1, 1, 1, 0)
@@ -37,17 +38,14 @@ interactor = NodePath("../Counter/IngredientProvider")
 
 [node name="Tile2" parent="." node_paths=PackedStringArray("interactor") instance=ExtResource("2_3duy7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -1)
-interactor = NodePath("FrogHeartProvider")
+interactor = NodePath("BugProvider")
 
 [node name="MeshInstance3D" parent="Tile2" index="1"]
 material_override = SubResource("StandardMaterial3D_08c4p")
 
-[node name="FrogHeartProvider" type="Node3D" parent="Tile2"]
+[node name="BugProvider" type="Node3D" parent="Tile2"]
 script = ExtResource("5_ingpr")
-ingredient = SubResource("Resource_frog_heart")
-single_use = null
-interaction_prompt = null
-enabled = null
+ingredient = SubResource("Resource_bug")
 
 [node name="Counter" parent="." instance=ExtResource("4_oddpn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
