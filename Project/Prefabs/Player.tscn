@@ -1,11 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2m5dx7ffhj07"]
+[gd_scene load_steps=7 format=3 uid="uid://d2m5dx7ffhj07"]
 
 [ext_resource type="Script" path="res://Scripts/player_movement.gd" id="1_nc2x1"]
 [ext_resource type="ArrayMesh" uid="uid://7uxkssw67hbc" path="res://Mesh/frogliq4.obj" id="2_2n4k6"]
 [ext_resource type="Script" path="res://Scripts/tile_detector.gd" id="2_cc6ua"]
-[ext_resource type="Script" path="res://Scripts/Interactors/ingredient_holder.gd" id="3_hldr"]
-[ext_resource type="Script" path="res://Scripts/Interactors/player_interactor.gd" id="4_as0tn"]
-[ext_resource type="Script" path="res://Scripts/Interactors/potion_holder.gd" id="4_phld"]
+[ext_resource type="Script" path="res://Scripts/player_mesh.gd" id="2_dx2tw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d4lr6"]
 size = Vector3(0.5, 0.5, 0.5)
@@ -22,10 +20,15 @@ script = ExtResource("1_nc2x1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_d4lr6")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.052, 0, 0, 0, 0.052, 0, 0, 0, 0.052, 0, 0.05, 0)
+[node name="Mesh" type="Node3D" parent="." node_paths=PackedStringArray("player_mesh")]
+script = ExtResource("2_dx2tw")
+player_mesh = NodePath(".")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(0.052, 0, 0, 0, 0.052, 0, 0, 0, 0.052, 0, 0.05, 0.1)
 material_override = SubResource("StandardMaterial3D_hwj1r")
 mesh = ExtResource("2_2n4k6")
+skeleton = NodePath("../..")
 
 [node name="TileDetector" type="Node3D" parent="." node_paths=PackedStringArray("raycast")]
 script = ExtResource("2_cc6ua")
@@ -35,12 +38,3 @@ raycast = NodePath("RayCast3D")
 target_position = Vector3(0, 0, 1)
 collision_mask = 4
 collide_with_areas = true
-
-[node name="PlayerInteractor" type="Node3D" parent="."]
-script = ExtResource("4_as0tn")
-
-[node name="IngredientHolder" type="Node3D" parent="PlayerInteractor"]
-script = ExtResource("3_hldr")
-
-[node name="PotionHolder" type="Node3D" parent="PlayerInteractor"]
-script = ExtResource("4_phld")

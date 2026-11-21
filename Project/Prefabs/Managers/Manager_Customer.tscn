@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqajvilli237c"]
+
+[ext_resource type="Script" path="res://Scripts/manager_customer.gd" id="1_r0ydx"]
+
+[node name="CustomerManager" type="Node3D"]
+script = ExtResource("1_r0ydx")
+customer_offset = Vector3(0, 0, 0.5)

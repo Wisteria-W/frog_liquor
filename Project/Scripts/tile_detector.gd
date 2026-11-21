@@ -32,7 +32,7 @@ func _physics_process(delta):
 	
 	raycast.force_raycast_update()
 	if raycast.is_colliding():
-		print("Collided")
+		#print("Collided")
 		if raycast.get_collider().get_parent() != selected_tile && selected_tile:
 			selected_tile.is_selected = false
 		selected_tile = raycast.get_collider().get_parent()
