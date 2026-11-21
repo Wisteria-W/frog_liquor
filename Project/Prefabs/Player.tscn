@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2m5dx7ffhj07"]
+[gd_scene load_steps=5 format=3 uid="uid://d2m5dx7ffhj07"]
 
 [ext_resource type="Script" path="res://Scripts/player_movement.gd" id="1_nc2x1"]
+[ext_resource type="Script" path="res://Scripts/tile_detector.gd" id="2_cc6ua"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d4lr6"]
 size = Vector3(0.5, 0.5, 0.5)
@@ -13,9 +14,19 @@ collision_mask = 2
 script = ExtResource("1_nc2x1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_d4lr6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 mesh = SubResource("BoxMesh_lkjhp")
+
+[node name="TileDetector" type="Node3D" parent="." node_paths=PackedStringArray("raycast")]
+script = ExtResource("2_cc6ua")
+raycast = NodePath("RayCast3D")
+
+[node name="RayCast3D" type="RayCast3D" parent="TileDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+target_position = Vector3(0, 0, 0.5)
+collision_mask = 4
+collide_with_areas = true

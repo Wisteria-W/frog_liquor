@@ -5,7 +5,7 @@ extends CharacterBody3D
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 
 func _physics_process(delta):
-	var input_dir = Input.get_vector("Left", "Right", "Up", "Down")
+	var input_dir = Input.get_vector("Left", "Right", "Up", "Down").rotated(deg_to_rad(45))
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * movement_speed
