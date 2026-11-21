@@ -10,6 +10,11 @@ signal potion_taken(potion: Potion, holder: PotionHolder)
 
 ## How many potions fit. 1 = carry only one at a time.
 @export var capacity: int = 1
+@export var item_offset: Vector3 = Vector3(0, 0.6, 0)
+## When true on a world holder (e.g. a bar counter), a waiting customer will
+## take a potion placed on this counter after `serve_delay` seconds.
+@export var serves_waiting_customers: bool = false
+@export var serve_delay: float = 1.0
 
 ## Optional sibling holder (e.g. the player's ingredient holder): while it
 ## holds something, this holder refuses new items — one carry at a time.
@@ -18,11 +23,27 @@ var exclusive_with = null
 
 var held: Array[Potion] = []
 var _item_cube: MeshInstance3D
+var _serve_timer: float = 0.0
 
 
 func _ready() -> void:
-	_item_cube = _create_item_cube(Vector3(0, 0.6, 0), Vector3(0.18, 0.22, 0.18))
+	_item_cube = _create_item_cube(item_offset, Vector3(0.18, 0.22, 0.18))
 	_update_visual()
+
+
+func _process(delta: float) -> void:
+	super._process(delta)
+	if not serves_waiting_customers or is_empty():
+		_serve_timer = 0.0
+		return
+	var customer := _find_waiting_customer()
+	if customer == null:
+		_serve_timer = 0.0
+		return
+	_serve_timer += delta
+	if _serve_timer >= serve_delay:
+		_serve_timer = 0.0
+		transfer_to(customer)
 
 
 func is_empty() -> bool:
@@ -90,3 +111,40 @@ func transfer_to(consumer: PotionConsumer) -> bool:
 		take()
 		return true
 	return false
+
+
+## Player interaction with a world PotionHolder (such as a bar counter):
+## - Holding a potion -> places the potion onto the counter.
+## - Empty-handed -> picks the potion up from the counter.
+func interact_with(player: PlayerInteractor) -> void:
+	if player == null or player.potion_holder == self:
+		return
+	if not player.potion_holder.is_empty() and can_hold():
+		var potion := player.potion_holder.peek()
+		if hold(potion):
+			player.potion_holder.take()
+			_serve_timer = 0.0
+			print("Placed %s on %s" % [potion.display_name, name])
+			interacted.emit(self)
+	elif not is_empty() and player.potion_holder.can_hold():
+		var potion := peek()
+		if player.potion_holder.hold(potion):
+			take()
+			_serve_timer = 0.0
+			interacted.emit(self)
+
+
+func _find_waiting_customer() -> Customer:
+	if not is_inside_tree():
+		return null
+	var root_node: Node = owner if owner != null else get_tree().current_scene
+	if root_node == null:
+		return null
+	var mgr := root_node.get_node_or_null("CustomerManager")
+	if mgr == null and get_tree().current_scene != null:
+		mgr = get_tree().current_scene.get_node_or_null("CustomerManager")
+	if mgr and "customers" in mgr:
+		for c in mgr.customers:
+			if is_instance_valid(c) and c is Customer and (c as Customer).is_waiting:
+				return c as Customer
+	return null

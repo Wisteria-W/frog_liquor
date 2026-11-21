@@ -32,7 +32,8 @@ func _physics_process(delta):
 	
 	raycast.force_raycast_update()
 	if raycast.is_colliding():
-		var hit_tile := raycast.get_collider().get_parent() as Node3D
+		var collider := raycast.get_collider()
+		var hit_tile := (collider if (collider is Interactor or collider is Tile) else collider.get_parent()) as Node3D
 		if hit_tile != selected_tile && selected_tile:
 			if "is_selected" in selected_tile:
 				selected_tile.is_selected = false

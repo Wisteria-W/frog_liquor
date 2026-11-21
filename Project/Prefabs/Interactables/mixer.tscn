@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnpjw3onxnq26"]
+
+[ext_resource type="Script" path="res://Scripts/Interactors/mixer.gd" id="1_q0pap"]
+
+[node name="Mixer" type="Node3D"]
+script = ExtResource("1_q0pap")

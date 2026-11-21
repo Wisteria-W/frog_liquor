@@ -22,6 +22,11 @@ func _process(delta):
 	super._process(delta)
 	if waiting_graphic:
 		waiting_graphic.visible = is_waiting
+		if waiting_graphic is SpriteBase3D:
+			(waiting_graphic as SpriteBase3D).modulate = Color(1, 0.4, 0.4) if is_selected else Color.WHITE
+	var area := get_node_or_null("Area3D") as Area3D
+	if area:
+		area.collision_layer = 4 if is_waiting else 0
 
 func _init() -> void:
 	interaction_prompt = "Serve potion"
