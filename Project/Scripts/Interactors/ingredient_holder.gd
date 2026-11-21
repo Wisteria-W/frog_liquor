@@ -90,3 +90,21 @@ func transfer_to(consumer: IngredientConsumer) -> bool:
 		take()
 		return true
 	return false
+
+
+## Player interaction with a world IngredientHolder (e.g. a counter or basket):
+## - Holding an ingredient -> places it onto this holder.
+## - Empty-handed -> picks the held ingredient up.
+func interact_with(player: PlayerInteractor) -> void:
+	if player == null or player.ingredient_holder == self:
+		return
+	if not player.ingredient_holder.is_empty() and can_hold():
+		var ingredient := player.ingredient_holder.peek()
+		if hold(ingredient):
+			player.ingredient_holder.take()
+			interacted.emit(self)
+	elif not is_empty() and player.ingredient_holder.can_hold():
+		var ingredient := peek()
+		if player.ingredient_holder.hold(ingredient):
+			take()
+			interacted.emit(self)

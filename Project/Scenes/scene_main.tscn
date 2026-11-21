@@ -1,28 +1,18 @@
-[gd_scene load_steps=15 format=3 uid="uid://fybmebg4g7wn"]
+[gd_scene load_steps=21 format=3 uid="uid://dvass2etv3xvi"]
 
-[ext_resource type="AudioStream" uid="uid://be67gp1ojy72i" path="res://Sounds/sound_maintheme.mp3" id="1_6rign"]
+[ext_resource type="AudioStream" uid="uid://b76tb17ydg68" path="res://Sounds/sound_maintheme.mp3" id="1_6rign"]
 [ext_resource type="PackedScene" uid="uid://d2m5dx7ffhj07" path="res://Prefabs/Player.tscn" id="2_fylqf"]
 [ext_resource type="PackedScene" uid="uid://cqajvilli237c" path="res://Prefabs/Managers/Manager_Customer.tscn" id="3_0byua"]
 [ext_resource type="PackedScene" uid="uid://o2xry017qlsr" path="res://Prefabs/Wall.tscn" id="4_880n7"]
 [ext_resource type="ArrayMesh" uid="uid://dd47n4sojslu6" path="res://Mesh/ground_tile_white.obj" id="5_iqsbu"]
 [ext_resource type="ArrayMesh" uid="uid://dxauaong18w62" path="res://Mesh/ground_tile_black.obj" id="6_w8ta4"]
-[ext_resource type="ArrayMesh" uid="uid://bhkx5w85frdi6" path="res://Mesh/bar_counter_straight.obj" id="7_3y3wc"]
+[ext_resource type="ArrayMesh" uid="uid://p5u1nf4s85hc" path="res://Mesh/bar_counter_straight.obj" id="7_3y3wc"]
 [ext_resource type="PackedScene" uid="uid://8k45qvmqn1ob" path="res://Prefabs/Tile_Test.tscn" id="7_v1nd5"]
-[ext_resource type="Script" path="res://Scripts/Interactors/ingredient_provider.gd" id="8_ingpr"]
 [ext_resource type="Script" path="res://Scripts/Ingredient.gd" id="9_ingrd"]
-[ext_resource type="Script" path="res://Scripts/Interactors/mixer.gd" id="10_mixer"]
-
-[sub_resource type="Resource" id="Resource_water"]
-resource_local_to_scene = true
-script = ExtResource("9_ingrd")
-id = "water"
-display_name = "WATER"
-
-[sub_resource type="Resource" id="Resource_frog_heart"]
-resource_local_to_scene = true
-script = ExtResource("9_ingrd")
-id = "frog_heart"
-display_name = "FROG HEART"
+[ext_resource type="PackedScene" uid="uid://c23d0cl3jnmbx" path="res://Prefabs/Interactables/water_provider.tscn" id="9_oklgq"]
+[ext_resource type="PackedScene" uid="uid://cj8ra8vnukkbn" path="res://Prefabs/frog_heart_provider.tscn" id="11_v5y00"]
+[ext_resource type="PackedScene" uid="uid://bnpjw3onxnq26" path="res://Prefabs/Interactables/mixer.tscn" id="12_i7h35"]
+[ext_resource type="Script" path="res://Scripts/Interactors/potion_holder.gd" id="13_phold"]
 
 [sub_resource type="Environment" id="Environment_e3kdq"]
 background_mode = 1
@@ -30,6 +20,37 @@ background_color = Color(0.62261, 0.327168, 0.88061, 1)
 background_energy_multiplier = 0.9
 ambient_light_source = 2
 ambient_light_color = Color(0.736452, 0.424933, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_counter_area"]
+size = Vector3(1, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_counter_body"]
+size = Vector3(0.9, 0.5, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_counter_hl"]
+transparency = 1
+albedo_color = Color(0.737255, 0.423529, 1, 0.0980392)
+
+[sub_resource type="BoxMesh" id="BoxMesh_counter_hl"]
+size = Vector3(1.05, 0.55, 1.05)
+
+[sub_resource type="Resource" id="Resource_ylhls"]
+resource_local_to_scene = true
+script = ExtResource("9_ingrd")
+id = "water"
+display_name = "WATER"
+model_scale = Vector3(1, 1, 1)
+model_offset = Vector3(0, 0, 0)
+fallback_color = Color(1, 1, 1, 0)
+
+[sub_resource type="Resource" id="Resource_ppq2r"]
+resource_local_to_scene = true
+script = ExtResource("9_ingrd")
+id = "frog_heart"
+display_name = "FROG HEART"
+model_scale = Vector3(1, 1, 1)
+model_offset = Vector3(0, 0, 0)
+fallback_color = Color(1, 1, 1, 0)
 
 [node name="Main" type="Node3D"]
 
@@ -490,45 +511,164 @@ mesh = ExtResource("5_iqsbu")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Counter"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, -2)
 mesh = ExtResource("7_3y3wc")
+script = ExtResource("13_phold")
+item_offset = Vector3(0, 0.36, 0)
+serves_waiting_customers = true
+
+[node name="Area3D" type="Area3D" parent="Environment/Counter/MeshInstance3D"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Counter/MeshInstance3D/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_counter_area")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Environment/Counter/MeshInstance3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Counter/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_counter_body")
+
+[node name="HighlightMesh" type="MeshInstance3D" parent="Environment/Counter/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_counter_hl")
+mesh = SubResource("BoxMesh_counter_hl")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Environment/Counter"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, -1)
 mesh = ExtResource("7_3y3wc")
+script = ExtResource("13_phold")
+item_offset = Vector3(0, 0.36, 0)
+serves_waiting_customers = true
+
+[node name="Area3D" type="Area3D" parent="Environment/Counter/MeshInstance3D2"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Counter/MeshInstance3D2/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_counter_area")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Environment/Counter/MeshInstance3D2"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Counter/MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_counter_body")
+
+[node name="HighlightMesh" type="MeshInstance3D" parent="Environment/Counter/MeshInstance3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_counter_hl")
+mesh = SubResource("BoxMesh_counter_hl")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Environment/Counter"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, 0)
 mesh = ExtResource("7_3y3wc")
+script = ExtResource("13_phold")
+item_offset = Vector3(0, 0.36, 0)
+serves_waiting_customers = true
+
+[node name="Area3D" type="Area3D" parent="Environment/Counter/MeshInstance3D3"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Counter/MeshInstance3D3/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_counter_area")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Environment/Counter/MeshInstance3D3"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Counter/MeshInstance3D3/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_counter_body")
+
+[node name="HighlightMesh" type="MeshInstance3D" parent="Environment/Counter/MeshInstance3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_counter_hl")
+mesh = SubResource("BoxMesh_counter_hl")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Environment/Counter"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, 1)
 mesh = ExtResource("7_3y3wc")
+script = ExtResource("13_phold")
+item_offset = Vector3(0, 0.36, 0)
+serves_waiting_customers = true
+
+[node name="Area3D" type="Area3D" parent="Environment/Counter/MeshInstance3D4"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Counter/MeshInstance3D4/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_counter_area")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Environment/Counter/MeshInstance3D4"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Counter/MeshInstance3D4/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_counter_body")
+
+[node name="HighlightMesh" type="MeshInstance3D" parent="Environment/Counter/MeshInstance3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_counter_hl")
+mesh = SubResource("BoxMesh_counter_hl")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="Environment/Counter"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, 2)
 mesh = ExtResource("7_3y3wc")
+script = ExtResource("13_phold")
+item_offset = Vector3(0, 0.36, 0)
+serves_waiting_customers = true
 
-[node name="Tile" parent="." node_paths=PackedStringArray("interactor") instance=ExtResource("7_v1nd5")]
+[node name="Area3D" type="Area3D" parent="Environment/Counter/MeshInstance3D5"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Counter/MeshInstance3D5/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_counter_area")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Environment/Counter/MeshInstance3D5"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Counter/MeshInstance3D5/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_counter_body")
+
+[node name="HighlightMesh" type="MeshInstance3D" parent="Environment/Counter/MeshInstance3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_counter_hl")
+mesh = SubResource("BoxMesh_counter_hl")
+
+[node name="Tile" parent="." instance=ExtResource("7_v1nd5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
-interactor = NodePath("WaterProvider")
 
-[node name="WaterProvider" type="Node3D" parent="Tile"]
-script = ExtResource("8_ingpr")
-ingredient = SubResource("Resource_water")
+[node name="WaterProvider" parent="Tile" instance=ExtResource("9_oklgq")]
+ingredient = SubResource("Resource_ylhls")
 
-[node name="Tile2" parent="." node_paths=PackedStringArray("interactor") instance=ExtResource("7_v1nd5")]
+[node name="Tile2" parent="." instance=ExtResource("7_v1nd5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -2)
-interactor = NodePath("FrogHeartProvider")
 
-[node name="FrogHeartProvider" type="Node3D" parent="Tile2"]
-script = ExtResource("8_ingpr")
-ingredient = SubResource("Resource_frog_heart")
+[node name="FrogHeartProvider" parent="Tile2" instance=ExtResource("11_v5y00")]
+ingredient = SubResource("Resource_ppq2r")
 
-[node name="Tile3" parent="." node_paths=PackedStringArray("interactor") instance=ExtResource("7_v1nd5")]
+[node name="Tile3" parent="." instance=ExtResource("7_v1nd5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
-interactor = NodePath("Mixer")
 
-[node name="Mixer" type="Node3D" parent="Tile3"]
-script = ExtResource("10_mixer")
+[node name="Mixer" parent="Tile3" instance=ExtResource("12_i7h35")]
 
 [node name="Tile4" parent="." instance=ExtResource("7_v1nd5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -2)

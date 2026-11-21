@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d2m5dx7ffhj07"]
+[gd_scene load_steps=13 format=3 uid="uid://d2m5dx7ffhj07"]
 
 [ext_resource type="Script" path="res://Scripts/player_movement.gd" id="1_nc2x1"]
 [ext_resource type="ArrayMesh" uid="uid://7uxkssw67hbc" path="res://Mesh/frogliq4.obj" id="2_2n4k6"]
@@ -15,9 +15,88 @@ size = Vector3(0.5, 0.5, 0.5)
 vertex_color_use_as_albedo = true
 vertex_color_is_srgb = true
 
-[node name="Player" type="CharacterBody3D"]
+[sub_resource type="Animation" id="Animation_vsmel"]
+resource_name = "anim_idle"
+length = 0.6
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/MeshInstance3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector3(0.052, 0.052, 0.052), Vector3(0.0442, 0.0624, 0.052), Vector3(0.052, 0.052, 0.052)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh/MeshInstance3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nqenc"]
+resource_name = "anim_walk"
+length = 0.35
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.35),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.2, 0), Vector3(0, 0.2, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh/MeshInstance3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.35),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.523599, 0, 0), Vector3(0.523599, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mesh/MeshInstance3D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.052, 0.052, 0.052)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bp51f"]
+_data = {
+"anim_idle": SubResource("Animation_vsmel"),
+"anim_walk": SubResource("Animation_nqenc")
+}
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("animation")]
 collision_mask = 2
 script = ExtResource("1_nc2x1")
+animation = NodePath("AnimationPlayer")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
@@ -50,3 +129,8 @@ script = ExtResource("6_d1wly")
 
 [node name="IngredientHolder" type="Node3D" parent="PlayerInteractor"]
 script = ExtResource("7_1x30h")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bp51f")
+}

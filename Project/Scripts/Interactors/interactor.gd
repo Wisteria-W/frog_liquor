@@ -15,6 +15,10 @@ var is_selected: bool = false
 
 
 func _process(_delta: float) -> void:
+	var highlight := get_node_or_null("HighlightMesh") as MeshInstance3D
+	if highlight:
+		highlight.visible = is_selected
+		return
 	var mesh := get_node_or_null("MeshInstance3D") as MeshInstance3D
 	if mesh and mesh.material_override:
 		mesh.material_override.albedo_color = Color.RED if is_selected else Color.WHITE

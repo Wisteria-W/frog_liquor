@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://destnx2013qqd"]
+
+[ext_resource type="ArrayMesh" uid="uid://dwaaannx7h8nw" path="res://Mesh/bug5.obj" id="1_pjrvx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_irfa8"]
+albedo_color = Color(0.063, 0.5733, 0.63, 1)
+
+[node name="Ingridient" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_irfa8")
+mesh = ExtResource("1_pjrvx")
