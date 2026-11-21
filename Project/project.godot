@@ -23,6 +23,12 @@ config/icon="res://icon.svg"
 
 PotionService="*res://Scripts/potion_service.gd"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+
 [filesystem]
 
 import/fbx/enabled=false

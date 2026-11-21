@@ -7,6 +7,7 @@
 script = ExtResource("1_r0ydx")
 customer_offset = Vector3(1, 0, 0)
 customer_paths = Array[String](["res://Prefabs/Customers/Customer_01.tscn"])
+max_customer_count = 3
 customer_spawn_timer = NodePath("Timer")
 audio_customer_leave = NodePath("AudioStreamPlayer")
 
