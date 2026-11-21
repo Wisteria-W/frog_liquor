@@ -2,11 +2,6 @@
 	{
 		"id": "potion_red",
 		"display_name": "Red Booze",
-		"ingredients": ["bug", "water"]
-	},
-	{
-		"id": "potion_red",
-		"display_name": "Red Booze",
 		"ingredients": ["frog_heart", "water"]
 	}
 ]

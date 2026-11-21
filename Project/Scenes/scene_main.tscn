@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://8k45qvmqn1ob" path="res://Prefabs/Tile_Test.tscn" id="7_v1nd5"]
 [ext_resource type="Script" path="res://Scripts/Ingredient.gd" id="9_ingrd"]
 [ext_resource type="PackedScene" uid="uid://c23d0cl3jnmbx" path="res://Prefabs/Interactables/water_provider.tscn" id="9_oklgq"]
-[ext_resource type="PackedScene" uid="uid://cj8ra8vnukkbn" path="res://Prefabs/Interactables/bug_provider.tscn" id="11_v5y00"]
+[ext_resource type="PackedScene" uid="uid://cj8ra8vnukkbn" path="res://Prefabs/frog_heart_provider.tscn" id="11_v5y00"]
 [ext_resource type="PackedScene" uid="uid://bnpjw3onxnq26" path="res://Prefabs/Interactables/mixer.tscn" id="12_i7h35"]
 [ext_resource type="PackedScene" uid="uid://destnx2013qqd" path="res://Prefabs/Ingridients/Ingridient_01.tscn" id="13_bbta2"]
 [ext_resource type="Script" path="res://Scripts/Interactors/potion_holder.gd" id="13_phold"]
@@ -68,8 +68,8 @@ fallback_color = Color(1, 1, 1, 0)
 [sub_resource type="Resource" id="Resource_ewx8o"]
 resource_local_to_scene = true
 script = ExtResource("9_ingrd")
-id = "bug"
-display_name = "BUG"
+id = "frog_heart"
+display_name = "FROG HEART"
 model_scene = ExtResource("13_bbta2")
 model_scale = Vector3(1, 1, 1)
 model_offset = Vector3(0, 0, 0)
@@ -708,7 +708,7 @@ ingredient = SubResource("Resource_ylhls")
 [node name="Tile2" parent="." instance=ExtResource("7_v1nd5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -2)
 
-[node name="BugProvider" parent="Tile2" instance=ExtResource("11_v5y00")]
+[node name="FrogHeartProvider" parent="Tile2" instance=ExtResource("11_v5y00")]
 ingredient = SubResource("Resource_ewx8o")
 
 [node name="Tile3" parent="." instance=ExtResource("7_v1nd5")]

@@ -19,11 +19,11 @@ display_name = "WATER"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_08c4p"]
 
-[sub_resource type="Resource" id="Resource_bug"]
+[sub_resource type="Resource" id="Resource_frog_heart"]
 resource_local_to_scene = true
 script = ExtResource("9_ingrd")
-id = "bug"
-display_name = "BUG"
+id = "frog_heart"
+display_name = "FROG HEART"
 
 [node name="Node3D" type="Node3D"]
 
@@ -47,14 +47,14 @@ ingredient = SubResource("Resource_water")
 
 [node name="Tile2" parent="." node_paths=PackedStringArray("interactor") instance=ExtResource("2_5rxj8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0, -1)
-interactor = NodePath("BugProvider")
+interactor = NodePath("FrogHeartProvider")
 
 [node name="MeshInstance3D" parent="Tile2" index="1"]
 material_override = SubResource("StandardMaterial3D_08c4p")
 
-[node name="BugProvider" type="Node3D" parent="Tile2"]
+[node name="FrogHeartProvider" type="Node3D" parent="Tile2"]
 script = ExtResource("8_ingpr")
-ingredient = SubResource("Resource_bug")
+ingredient = SubResource("Resource_frog_heart")
 
 [node name="Mixer" parent="." instance=ExtResource("7_mixer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0, -1)
