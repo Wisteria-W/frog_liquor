@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://d2m5dx7ffhj07"]
+[gd_scene load_steps=9 format=3 uid="uid://d2m5dx7ffhj07"]
 
 [ext_resource type="Script" path="res://Scripts/player_movement.gd" id="1_nc2x1"]
 [ext_resource type="ArrayMesh" uid="uid://7uxkssw67hbc" path="res://Mesh/frogliq4.obj" id="2_2n4k6"]
 [ext_resource type="Script" path="res://Scripts/tile_detector.gd" id="2_cc6ua"]
-[ext_resource type="Script" path="res://player_mesh.gd" id="2_dx2tw"]
 [ext_resource type="Script" path="res://Scripts/Interactors/player_interactor.gd" id="5_hjogo"]
 [ext_resource type="Script" path="res://Scripts/Interactors/potion_holder.gd" id="6_d1wly"]
 [ext_resource type="Script" path="res://Scripts/Interactors/ingredient_holder.gd" id="7_1x30h"]
@@ -23,9 +22,7 @@ script = ExtResource("1_nc2x1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_d4lr6")
 
-[node name="Mesh" type="Node3D" parent="." node_paths=PackedStringArray("player_mesh")]
-script = ExtResource("2_dx2tw")
-player_mesh = NodePath(".")
+[node name="Mesh" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(0.052, 0, 0, 0, 0.052, 0, 0, 0, 0.052, 0, 0.05, 0.1)

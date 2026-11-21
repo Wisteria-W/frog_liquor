@@ -34,14 +34,18 @@ func _create_customer():
 	var customer_instance = customer_resources.pick_random().instantiate()
 	customer_instance.position = customer_origin + customer_offset * customers.size()
 	customer_instance.rotation.y = deg_to_rad(-90)
-	customer_instance.connect("got_potion", _remove_customer)
+	customer_instance.connect("served", _on_customer_served)
 	if customers.size() <= 0:
 		customer_instance.is_waiting = true
 	customers.append(customer_instance)
 	get_tree().current_scene.add_child(customer_instance)
 
+func _on_customer_served(_potion: Potion, customer: Customer):
+	_remove_customer(customer, true)
+
 func _remove_customer(customer : Customer, is_right : bool):
-	customer.disconnect("got_potion", _remove_customer)
+	if customer.is_connected("served", _on_customer_served):
+		customer.disconnect("served", _on_customer_served)
 	customers.erase(customer)
 	for cust in customers:
 		cust.global_position -= customer_offset

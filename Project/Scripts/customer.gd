@@ -11,11 +11,9 @@ var is_waiting : bool = false
 
 signal served(potion: Potion, customer: Customer)
 func _process(delta):
-	if is_waiting:
-		waiting_graphic.visible = true
-	else:
-		waiting_graphic.visible = false
-		pass
+	super._process(delta)
+	if waiting_graphic:
+		waiting_graphic.visible = is_waiting
 
 func _init() -> void:
 	interaction_prompt = "Serve potion"

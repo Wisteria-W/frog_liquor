@@ -32,10 +32,14 @@ func _physics_process(delta):
 	
 	raycast.force_raycast_update()
 	if raycast.is_colliding():
-		#print("Collided")
-		if raycast.get_collider().get_parent() != selected_tile && selected_tile:
-			selected_tile.is_selected = false
-		selected_tile = raycast.get_collider().get_parent()
-		selected_tile.is_selected = true
+		var hit_tile := raycast.get_collider().get_parent() as Node3D
+		if hit_tile != selected_tile && selected_tile:
+			if "is_selected" in selected_tile:
+				selected_tile.is_selected = false
+		selected_tile = hit_tile
+		if selected_tile && "is_selected" in selected_tile:
+			selected_tile.is_selected = true
 	elif selected_tile:
-		selected_tile.is_selected = false
+		if "is_selected" in selected_tile:
+			selected_tile.is_selected = false
+		selected_tile = null

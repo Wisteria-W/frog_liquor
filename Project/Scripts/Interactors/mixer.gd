@@ -46,12 +46,15 @@ func interact_with(player: PlayerInteractor) -> void:
 ## matched, i.e. murky sludge) so a PotionHolder can pick it up.
 func brew() -> Potion:
 	var potion := PotionService.brew()
+	_update_prompt()
 	brewed.emit(potion)
 	return potion
 
 
 func _consume(ingredient: Ingredient) -> bool:
 	var accepted := PotionService.add_ingredient(ingredient.id)
+	if accepted:
+		print("Added %s to mixer (%d/%d)" % [ingredient.display_name, PotionService.slots.size(), PotionService.MAX_INGREDIENTS])
 	_update_prompt()
 	return accepted
 
