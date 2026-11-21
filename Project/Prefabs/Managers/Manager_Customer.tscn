@@ -4,8 +4,8 @@
 
 [node name="CustomerManager" type="Node3D" node_paths=PackedStringArray("customer_spawn_timer")]
 script = ExtResource("1_r0ydx")
-customer_offset = Vector3(0.75, 0, 0)
-customer_paths = Array[String](["res://Prefabs/Customers/Customer_Test_01.tscn"])
+customer_offset = Vector3(1, 0, 0)
+customer_paths = Array[String](["res://Prefabs/Customers/Customer_01.tscn"])
 customer_spawn_timer = NodePath("Timer")
 
 [node name="Timer" type="Timer" parent="."]

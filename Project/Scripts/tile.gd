@@ -8,9 +8,9 @@ var is_selected : bool = false
 
 func _process(delta):
 	if is_selected:
-		mesh.material_override.albedo_color = Color.RED
+		mesh.visible = true
 	else:
-		mesh.material_override.albedo_color = Color.WHITE
+		mesh.visible = false
 
 func _input(event):
 	if event.is_action_pressed("Interaction") && is_selected:
