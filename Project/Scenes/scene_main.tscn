@@ -1,18 +1,20 @@
-[gd_scene load_steps=23 format=3 uid="uid://fybmebg4g7wn"]
+[gd_scene load_steps=25 format=3 uid="uid://dvass2etv3xvi"]
 
-[ext_resource type="AudioStream" uid="uid://b8jsfri5ls2di" path="res://Sounds/sound_maintheme.mp3" id="1_6rign"]
+[ext_resource type="AudioStream" uid="uid://b76tb17ydg68" path="res://Sounds/sound_maintheme.mp3" id="1_6rign"]
 [ext_resource type="PackedScene" uid="uid://d2m5dx7ffhj07" path="res://Prefabs/Player.tscn" id="2_fylqf"]
 [ext_resource type="PackedScene" uid="uid://cqajvilli237c" path="res://Prefabs/Managers/Manager_Customer.tscn" id="3_0byua"]
 [ext_resource type="PackedScene" uid="uid://o2xry017qlsr" path="res://Prefabs/Wall.tscn" id="4_880n7"]
 [ext_resource type="ArrayMesh" uid="uid://dd47n4sojslu6" path="res://Mesh/ground_tile_white.obj" id="5_iqsbu"]
 [ext_resource type="ArrayMesh" uid="uid://dxauaong18w62" path="res://Mesh/ground_tile_black.obj" id="6_w8ta4"]
-[ext_resource type="ArrayMesh" uid="uid://ikuu6xlbj5sm" path="res://Mesh/bar_counter_straight.obj" id="7_3y3wc"]
+[ext_resource type="ArrayMesh" uid="uid://p5u1nf4s85hc" path="res://Mesh/bar_counter_straight.obj" id="7_3y3wc"]
 [ext_resource type="PackedScene" uid="uid://8k45qvmqn1ob" path="res://Prefabs/Tile_Test.tscn" id="7_v1nd5"]
 [ext_resource type="Script" path="res://Scripts/Ingredient.gd" id="9_ingrd"]
 [ext_resource type="PackedScene" uid="uid://c23d0cl3jnmbx" path="res://Prefabs/Interactables/water_provider.tscn" id="9_oklgq"]
-[ext_resource type="PackedScene" uid="uid://cj8ra8vnukkbn" path="res://Prefabs/frog_heart_provider.tscn" id="11_v5y00"]
+[ext_resource type="PackedScene" uid="uid://cj8ra8vnukkbn" path="res://Prefabs/Interactables/bug_provider.tscn" id="11_v5y00"]
 [ext_resource type="PackedScene" uid="uid://bnpjw3onxnq26" path="res://Prefabs/Interactables/mixer.tscn" id="12_i7h35"]
+[ext_resource type="PackedScene" uid="uid://destnx2013qqd" path="res://Prefabs/Ingridients/Ingridient_01.tscn" id="13_bbta2"]
 [ext_resource type="Script" path="res://Scripts/Interactors/potion_holder.gd" id="13_phold"]
+[ext_resource type="PackedScene" uid="uid://brc721f1vsj6p" path="res://Prefabs/Ingridients/Ingridient_02.tscn" id="14_6t3id"]
 
 [sub_resource type="Animation" id="Animation_n7cif"]
 resource_name = "anim_fade_in"
@@ -63,11 +65,12 @@ model_scale = Vector3(1, 1, 1)
 model_offset = Vector3(0, 0, 0)
 fallback_color = Color(1, 1, 1, 0)
 
-[sub_resource type="Resource" id="Resource_ppq2r"]
+[sub_resource type="Resource" id="Resource_ewx8o"]
 resource_local_to_scene = true
 script = ExtResource("9_ingrd")
-id = "frog_heart"
-display_name = "FROG HEART"
+id = "bug"
+display_name = "BUG"
+model_scene = ExtResource("13_bbta2")
 model_scale = Vector3(1, 1, 1)
 model_offset = Vector3(0, 0, 0)
 fallback_color = Color(1, 1, 1, 0)
@@ -114,7 +117,7 @@ transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 3, 0)
 light_color = Color(1, 0.805, 0.7, 1)
 
 [node name="CustomerManager" parent="." instance=ExtResource("3_0byua")]
-customer_origin = Vector3(0.35, 2, 0)
+customer_origin = Vector3(0.4, 2, 0)
 customer_spawn_cooldown = 3.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -705,8 +708,8 @@ ingredient = SubResource("Resource_ylhls")
 [node name="Tile2" parent="." instance=ExtResource("7_v1nd5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -2)
 
-[node name="FrogHeartProvider" parent="Tile2" instance=ExtResource("11_v5y00")]
-ingredient = SubResource("Resource_ppq2r")
+[node name="BugProvider" parent="Tile2" instance=ExtResource("11_v5y00")]
+ingredient = SubResource("Resource_ewx8o")
 
 [node name="Tile3" parent="." instance=ExtResource("7_v1nd5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)

@@ -6,6 +6,12 @@ extends Interactor
 
 signal ingredient_provided(ingredient: Ingredient, provider: IngredientProvider)
 
+## Quick setup directly on the provider (no nested sub-resource required):
+@export var ingredient_id: String = ""
+@export var ingredient_name: String = ""
+@export var ingredient_model: PackedScene
+
+## Optional Ingredient resource (automatically created/synced from the fields above if set).
 @export var ingredient: Ingredient
 @export var single_use: bool = false
 
@@ -14,8 +20,23 @@ var _item_cube: MeshInstance3D
 
 
 func _ready() -> void:
-	_item_cube = _create_item_cube(Vector3(0, 0.55, 0))
+	_sync_ingredient()
+	_item_cube = _create_item_cube(Vector3(0, 0.5, 0))
 	_update_visual()
+
+
+func _sync_ingredient() -> void:
+	if ingredient == null and (not ingredient_id.is_empty() or ingredient_model != null):
+		ingredient = Ingredient.new()
+	if ingredient != null:
+		if not ingredient_id.is_empty():
+			ingredient.id = ingredient_id
+		if not ingredient_name.is_empty():
+			ingredient.display_name = ingredient_name
+		elif ingredient.display_name.is_empty() and not ingredient.id.is_empty():
+			ingredient.display_name = ingredient.id.to_upper()
+		if ingredient_model != null:
+			ingredient.model_scene = ingredient_model
 
 
 func can_interact() -> bool:
@@ -40,6 +61,7 @@ func _update_visual() -> void:
 
 ## The ingredient this provider hands out. Null when none is assigned.
 func provide_ingredient() -> Ingredient:
+	_sync_ingredient()
 	return ingredient
 
 

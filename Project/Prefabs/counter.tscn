@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bgjm6cddibfls"]
+[gd_scene load_steps=4 format=3 uid="uid://bgjm6cddibfls"]
 
 [ext_resource type="Script" path="res://Scripts/Interactors/ingredient_provider.gd" id="1_3uuak"]
 [ext_resource type="Script" path="res://Scripts/Ingredient.gd" id="2_qa5ik"]
@@ -8,6 +8,7 @@ resource_local_to_scene = true
 script = ExtResource("2_qa5ik")
 id = "water"
 display_name = "WATER"
+model_scenes = Array[PackedScene]([])
 model_scale = Vector3(1, 1, 1)
 model_offset = Vector3(0, 0, 0)
 fallback_color = Color(1, 1, 1, 0)

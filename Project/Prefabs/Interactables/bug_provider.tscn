@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cj8ra8vnukkbn"]
+
+[ext_resource type="Script" path="res://Scripts/Interactors/ingredient_provider.gd" id="1_p67qc"]
+[ext_resource type="Script" path="res://Scripts/Ingredient.gd" id="2_b21ft"]
+[ext_resource type="PackedScene" uid="uid://destnx2013qqd" path="res://Prefabs/Ingridients/Ingridient_01.tscn" id="3_bug1"]
+
+[sub_resource type="Resource" id="Resource_bug"]
+resource_local_to_scene = true
+script = ExtResource("2_b21ft")
+id = "bug"
+display_name = "BUG"
+model_scene = ExtResource("3_bug1")
+model_scale = Vector3(1, 1, 1)
+model_offset = Vector3(0, 0, 0)
+fallback_color = Color(1, 1, 1, 0)
+
+[node name="BugProvider" type="Node3D"]
+script = ExtResource("1_p67qc")
+ingredient_id = "bug"
+ingredient_name = "BUG"
+ingredient_model = ExtResource("3_bug1")
+ingredient = SubResource("Resource_bug")
