@@ -11,6 +11,11 @@ signal ingredient_taken(ingredient: Ingredient, holder: IngredientHolder)
 ## How many ingredients fit. 1 = carry one at a time.
 @export var capacity: int = 1
 
+## Optional sibling holder (e.g. the player's potion holder): while it
+## holds something, this holder refuses new items — one carry at a time.
+## Left null for world holders (baskets, shelves), which don't exclude.
+var exclusive_with = null
+
 var held: Array[Ingredient] = []
 
 
@@ -23,7 +28,8 @@ func is_full() -> bool:
 
 
 func can_hold() -> bool:
-	return can_interact() and not is_full()
+	return can_interact() and not is_full() \
+		and (exclusive_with == null or exclusive_with.is_empty())
 
 
 ## Puts an ingredient into the holder. Returns false when full or rejected.
@@ -39,14 +45,16 @@ func hold(ingredient: Ingredient) -> bool:
 func take() -> Ingredient:
 	if held.is_empty():
 		return null
-	var ingredient := held.pop_back()
+	var ingredient: Ingredient = held.pop_back()
 	ingredient_taken.emit(ingredient, self)
 	return ingredient
 
 
 ## The most recently held ingredient, without removing it. Null when empty.
 func peek() -> Ingredient:
-	return null if held.is_empty() else held.back()
+	if held.is_empty():
+		return null
+	return held.back()
 
 
 ## Picks up the ingredient from a provider (fires its interaction).

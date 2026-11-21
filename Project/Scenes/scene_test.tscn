@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpusa324kweot"]
+[gd_scene load_steps=5 format=3 uid="uid://dpusa324kweot"]
 
 [ext_resource type="PackedScene" uid="uid://d2m5dx7ffhj07" path="res://Prefabs/Player.tscn" id="1_71exe"]
 [ext_resource type="PackedScene" uid="uid://8k45qvmqn1ob" path="res://Prefabs/Tile_Test.tscn" id="2_3duy7"]
+[ext_resource type="Script" path="res://Scripts/Interactors/customer.gd" id="3_cust"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_08c4p"]
 
@@ -25,5 +26,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0, -1)
 
 [node name="MeshInstance3D" parent="Tile2" index="1"]
 material_override = SubResource("StandardMaterial3D_08c4p")
+
+[node name="CustomerTile" parent="." node_paths=PackedStringArray("interactor") instance=ExtResource("2_3duy7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0, -1)
+interactor = NodePath("Customer")
+
+[node name="Customer" type="Node3D" parent="CustomerTile"]
+script = ExtResource("3_cust")
 
 [editable path="Tile2"]

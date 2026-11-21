@@ -28,3 +28,8 @@ func interact() -> void:
 ## The ingredient this provider hands out. Null when none is assigned.
 func provide_ingredient() -> Ingredient:
 	return ingredient
+
+
+## The player picks the provided ingredient up into its ingredient holder.
+func interact_with(player: PlayerInteractor) -> void:
+	player.ingredient_holder.take_from(self)

@@ -32,3 +32,12 @@ func consume_ingredient(ingredient: Ingredient) -> bool:
 ## Return false to reject the ingredient (nothing is recorded or emitted).
 func _consume(ingredient: Ingredient) -> bool:
 	return true
+
+
+## The player hands over the held ingredient; with empty hands the
+## consumer gets a plain interaction instead.
+func interact_with(player: PlayerInteractor) -> void:
+	if player.ingredient_holder.is_empty():
+		interact()
+	else:
+		player.ingredient_holder.transfer_to(self)

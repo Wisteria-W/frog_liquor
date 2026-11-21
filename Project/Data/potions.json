@@ -1,7 +1,7 @@
 [
 	{
-		"id": "health_potion_small",
-		"display_name": "Small Health Potion",
-		"ingredients": ["frog_heart", "red_mushroom"]
+		"id": "potion_red",
+		"display_name": "Red Booze",
+		"ingredients": ["frog_heart", "water"]
 	}
 ]
