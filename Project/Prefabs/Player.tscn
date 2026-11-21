@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2m5dx7ffhj07"]
+[gd_scene load_steps=10 format=3 uid="uid://d2m5dx7ffhj07"]
 
 [ext_resource type="Script" path="res://Scripts/player_movement.gd" id="1_nc2x1"]
 [ext_resource type="ArrayMesh" uid="uid://7uxkssw67hbc" path="res://Mesh/frogliq4.obj" id="2_2n4k6"]
 [ext_resource type="Script" path="res://Scripts/tile_detector.gd" id="2_cc6ua"]
+[ext_resource type="Script" path="res://Scripts/player_mesh.gd" id="2_dx2tw"]
 [ext_resource type="Script" path="res://Scripts/Interactors/player_interactor.gd" id="5_hjogo"]
 [ext_resource type="Script" path="res://Scripts/Interactors/potion_holder.gd" id="6_d1wly"]
 [ext_resource type="Script" path="res://Scripts/Interactors/ingredient_holder.gd" id="7_1x30h"]
@@ -44,12 +45,6 @@ script = ExtResource("5_hjogo")
 
 [node name="PotionHolder" type="Node3D" parent="PlayerInteractor"]
 script = ExtResource("6_d1wly")
-capacity = null
-interaction_prompt = null
-enabled = null
 
 [node name="IngredientHolder" type="Node3D" parent="PlayerInteractor"]
 script = ExtResource("7_1x30h")
-capacity = null
-interaction_prompt = null
-enabled = null

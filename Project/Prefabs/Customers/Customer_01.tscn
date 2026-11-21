@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://cnjcea47clyop"]
+
+[ext_resource type="Script" path="res://Scripts/customer.gd" id="1_vkbyq"]
+[ext_resource type="ArrayMesh" uid="uid://7uxkssw67hbc" path="res://Mesh/frogliq4.obj" id="2_phcyr"]
+[ext_resource type="Texture2D" uid="uid://bt3jmie0uyrmt" path="res://icon.svg" id="3_81nj7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x13bg"]
+size = Vector3(0.35, 0.35, 0.35)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xxrjh"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+
+[sub_resource type="Animation" id="Animation_6mgis"]
+resource_name = "anim_spawn"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.5),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [Vector3(0.052, 0.0312, 0.052), Vector3(0.02704, 0.1014, 0.052), Vector3(0.052, 0.04, 0.052), Vector3(0.052, 0.052, 0.052)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l5q3p"]
+_data = {
+"anim_spawn": SubResource("Animation_6mgis")
+}
+
+[node name="Customer" type="CharacterBody3D" node_paths=PackedStringArray("customer_mesh", "waiting_graphic")]
+script = ExtResource("1_vkbyq")
+customer_mesh_paths = Array[String](["res://Mesh/frogliq1.obj", "res://Mesh/frogliq2.obj", "res://Mesh/frogliq3.obj", "res://Mesh/frogb5barman.obj"])
+customer_mesh = NodePath("MeshInstance3D")
+waiting_graphic = NodePath("WaitingIndicator")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_x13bg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.052, 0, 0, 0, 0.046, 0, 0, 0, 0.052, 0, 0.05, 0)
+material_override = SubResource("StandardMaterial3D_xxrjh")
+mesh = ExtResource("2_phcyr")
+
+[node name="WaitingIndicator" type="Sprite3D" parent="."]
+transform = Transform3D(0.215, 0, 0, 0, 0.215, 0, 0, 0, 0.215, 0, 0.62427, 0)
+visible = false
+billboard = 1
+texture = ExtResource("3_81nj7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_l5q3p")
+}
+autoplay = "anim_spawn"
+speed_scale = 1.25

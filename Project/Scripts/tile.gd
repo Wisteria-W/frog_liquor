@@ -7,9 +7,9 @@ var is_selected : bool = false
 @export var mesh : MeshInstance3D
 
 func _process(delta):
-	if not mesh or not mesh.material_override:
+	if not mesh:
 		return
 	if is_selected:
-		mesh.material_override.albedo_color = Color.RED
+		mesh.visible = true
 	else:
-		mesh.material_override.albedo_color = Color.WHITE
+		mesh.visible = false
