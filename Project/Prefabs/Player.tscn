@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/player_movement.gd" id="1_nc2x1"]
 [ext_resource type="ArrayMesh" uid="uid://7uxkssw67hbc" path="res://Mesh/frogliq4.obj" id="2_2n4k6"]
 [ext_resource type="Script" path="res://Scripts/tile_detector.gd" id="2_cc6ua"]
-[ext_resource type="Script" path="res://player_mesh.gd" id="2_dx2tw"]
+[ext_resource type="Script" path="res://Scripts/player_mesh.gd" id="2_dx2tw"]
 [ext_resource type="Script" path="res://Scripts/Interactors/player_interactor.gd" id="5_hjogo"]
 [ext_resource type="Script" path="res://Scripts/Interactors/potion_holder.gd" id="6_d1wly"]
 [ext_resource type="Script" path="res://Scripts/Interactors/ingredient_holder.gd" id="7_1x30h"]

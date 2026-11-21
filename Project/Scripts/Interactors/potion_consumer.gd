@@ -10,6 +10,12 @@ signal potion_consumed(potion: Potion, consumer: PotionConsumer)
 @export var max_potions: int = -1
 
 var consumed: Array[Potion] = []
+var _item_cube: MeshInstance3D
+
+
+func _ready() -> void:
+	_item_cube = _create_item_cube(Vector3(0, 0.55, 0), Vector3(0.18, 0.22, 0.18))
+	_item_cube.visible = false
 
 
 func can_interact() -> bool:
@@ -24,6 +30,7 @@ func consume_potion(potion: Potion) -> bool:
 	if not _consume(potion):
 		return false
 	consumed.append(potion)
+	_apply_item_visual(_item_cube, potion)
 	potion_consumed.emit(potion, self)
 	return true
 

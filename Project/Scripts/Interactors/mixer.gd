@@ -8,9 +8,17 @@ extends IngredientConsumer
 
 signal brewed(potion: Potion)
 
+var _slot_cubes: Array[MeshInstance3D] = []
+var _slot_ingredients: Array[Ingredient] = []
+
 
 func _ready() -> void:
+	_slot_cubes = [
+		_create_item_cube(Vector3(-0.12, 0.55, 0), Vector3(0.14, 0.14, 0.14)),
+		_create_item_cube(Vector3(0.12, 0.55, 0), Vector3(0.14, 0.14, 0.14)),
+	]
 	_update_prompt()
+	_update_slot_cubes()
 
 
 ## Interacting with the mixer: offering an ingredient feeds the slots,
@@ -46,15 +54,35 @@ func interact_with(player: PlayerInteractor) -> void:
 ## matched, i.e. murky sludge) so a PotionHolder can pick it up.
 func brew() -> Potion:
 	var potion := PotionService.brew()
+	_slot_ingredients.clear()
+	_update_prompt()
+	_update_slot_cubes()
 	brewed.emit(potion)
 	return potion
 
 
 func _consume(ingredient: Ingredient) -> bool:
 	var accepted := PotionService.add_ingredient(ingredient.id)
+	if accepted:
+		_slot_ingredients.append(ingredient)
+		print("Added %s to mixer (%d/%d)" % [ingredient.display_name, PotionService.slots.size(), PotionService.MAX_INGREDIENTS])
 	_update_prompt()
+	_update_slot_cubes()
 	return accepted
 
 
 func _update_prompt() -> void:
 	interaction_prompt = "Brew" if PotionService.can_brew() else "Add ingredient"
+
+
+func _update_slot_cubes() -> void:
+	for i in range(_slot_cubes.size()):
+		var cube := _slot_cubes[i]
+		if i < _slot_ingredients.size():
+			_apply_item_visual(cube, _slot_ingredients[i])
+		elif i < PotionService.slots.size():
+			var temp := Ingredient.new()
+			temp.id = PotionService.slots[i]
+			_apply_item_visual(cube, temp)
+		else:
+			_apply_item_visual(cube, null)

@@ -40,6 +40,12 @@ func load_potions() -> void:
 		potion.display_name = entry.get("display_name", potion.id)
 		potion.ingredient_a = ingredients[0]
 		potion.ingredient_b = ingredients[1]
+		var mesh_path: String = entry.get("mesh", "")
+		if not mesh_path.is_empty() and ResourceLoader.exists(mesh_path):
+			potion.mesh = load(mesh_path) as Mesh
+		var scene_path: String = entry.get("model_scene", "")
+		if not scene_path.is_empty() and ResourceLoader.exists(scene_path):
+			potion.model_scene = load(scene_path) as PackedScene
 		potions.append(potion)
 
 

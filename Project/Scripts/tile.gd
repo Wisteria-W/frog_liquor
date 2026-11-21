@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 class_name Tile
 
 @export var interactor : Interactor
@@ -7,13 +7,9 @@ var is_selected : bool = false
 @export var mesh : MeshInstance3D
 
 func _process(delta):
+	if not mesh:
+		return
 	if is_selected:
-		mesh.material_override.albedo_color = Color.RED
+		mesh.visible = true
 	else:
-		mesh.material_override.albedo_color = Color.WHITE
-
-func _input(event):
-	if event.is_action_pressed("Interaction") && is_selected:
-		#print("Interact!")
-		if interactor:
-			interactor.interact()
+		mesh.visible = false

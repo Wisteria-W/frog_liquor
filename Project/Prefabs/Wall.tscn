@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://o2xry017qlsr"]
+
+[ext_resource type="ArrayMesh" uid="uid://cmr25pnr1mqt2" path="res://Mesh/bar_wall_straight.obj" id="1_ho6wk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wwd4h"]
+size = Vector3(1, 1, 0.5)
+
+[node name="Wall" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_ho6wk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.25)
+shape = SubResource("BoxShape3D_wwd4h")

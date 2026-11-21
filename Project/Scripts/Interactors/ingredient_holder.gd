@@ -17,6 +17,12 @@ signal ingredient_taken(ingredient: Ingredient, holder: IngredientHolder)
 var exclusive_with = null
 
 var held: Array[Ingredient] = []
+var _item_cube: MeshInstance3D
+
+
+func _ready() -> void:
+	_item_cube = _create_item_cube(Vector3(0, 0.6, 0))
+	_update_visual()
 
 
 func is_empty() -> bool:
@@ -37,6 +43,7 @@ func hold(ingredient: Ingredient) -> bool:
 	if ingredient == null or not can_hold():
 		return false
 	held.append(ingredient)
+	_update_visual()
 	ingredient_held.emit(ingredient, self)
 	return true
 
@@ -46,8 +53,15 @@ func take() -> Ingredient:
 	if held.is_empty():
 		return null
 	var ingredient: Ingredient = held.pop_back()
+	_update_visual()
 	ingredient_taken.emit(ingredient, self)
 	return ingredient
+
+
+func _update_visual() -> void:
+	if _item_cube == null:
+		return
+	_apply_item_visual(_item_cube, peek())
 
 
 ## The most recently held ingredient, without removing it. Null when empty.

@@ -12,7 +12,13 @@ extends Interactor
 func _ready() -> void:
 	ingredient_holder.exclusive_with = potion_holder
 	potion_holder.exclusive_with = ingredient_holder
+	ingredient_holder.ingredient_held.connect(_on_ingredient_held)
 	potion_holder.potion_held.connect(_on_potion_held)
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("Interaction"):
+		interact()
 
 
 ## True while the player carries anything (an ingredient or a potion).
@@ -27,9 +33,16 @@ func can_carry() -> bool:
 
 func _current_interactor() -> Interactor:
 	var target: Node = tile_detector.selected_tile
+	if target == null:
+		return null
 	if target is Tile and (target as Tile).interactor != null:
 		return (target as Tile).interactor
-	return target as Interactor
+	if target is Interactor:
+		return target
+	for child in target.get_children():
+		if child is Interactor:
+			return child
+	return null
 
 
 ## Interacts with whatever the TileDetector raycast is pointing at.
@@ -40,6 +53,10 @@ func interact() -> void:
 	var target := _current_interactor()
 	if target != null:
 		target.interact_with(self)
+
+
+func _on_ingredient_held(ingredient: Ingredient, _holder: IngredientHolder) -> void:
+	print("Player picked up %s" % ingredient.display_name)
 
 
 func _on_potion_held(potion: Potion, holder: PotionHolder) -> void:
