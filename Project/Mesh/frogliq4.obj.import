@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://7uxkssw67hbc"
+path="res://.godot/imported/frogliq4.obj-b409f7a5aec91fe5556b960c3a081275.mesh"
+
+[deps]
+
+files=["res://.godot/imported/frogliq4.obj-b409f7a5aec91fe5556b960c3a081275.mesh"]
+
+source_file="res://Mesh/frogliq4.obj"
+dest_files=["res://.godot/imported/frogliq4.obj-b409f7a5aec91fe5556b960c3a081275.mesh", "res://.godot/imported/frogliq4.obj-b409f7a5aec91fe5556b960c3a081275.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
