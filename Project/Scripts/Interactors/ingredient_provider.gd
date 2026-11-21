@@ -6,23 +6,37 @@ extends Interactor
 
 signal ingredient_provided(ingredient: Ingredient, provider: IngredientProvider)
 
+## Quick setup directly on the provider (no nested sub-resource required):
+@export var ingredient_id: String = ""
+@export var ingredient_name: String = ""
+@export var ingredient_model: PackedScene
+
+## Optional Ingredient resource (automatically created/synced from the fields above if set).
 @export var ingredient: Ingredient
 @export var single_use: bool = false
-
-const DEFAULT_BUG_SCENES: Array[String] = [
-	"res://Prefabs/Ingridients/Ingridient_01.tscn",
-	"res://Prefabs/Ingridients/Ingridient_02.tscn",
-]
 
 var _used := false
 var _item_cube: MeshInstance3D
 
 
 func _ready() -> void:
-	_ensure_bug_scenes()
-	_pick_next_model_scene()
+	_sync_ingredient()
 	_item_cube = _create_item_cube(Vector3(0, 0.5, 0))
 	_update_visual()
+
+
+func _sync_ingredient() -> void:
+	if ingredient == null and (not ingredient_id.is_empty() or ingredient_model != null):
+		ingredient = Ingredient.new()
+	if ingredient != null:
+		if not ingredient_id.is_empty():
+			ingredient.id = ingredient_id
+		if not ingredient_name.is_empty():
+			ingredient.display_name = ingredient_name
+		elif ingredient.display_name.is_empty() and not ingredient.id.is_empty():
+			ingredient.display_name = ingredient.id.to_upper()
+		if ingredient_model != null:
+			ingredient.model_scene = ingredient_model
 
 
 func can_interact() -> bool:
@@ -35,10 +49,8 @@ func interact() -> void:
 	super.interact()
 	if single_use:
 		_used = true
-	var provided := provide_ingredient()
-	_pick_next_model_scene()
 	_update_visual()
-	ingredient_provided.emit(provided, self)
+	ingredient_provided.emit(ingredient, self)
 
 
 func _update_visual() -> void:
@@ -49,27 +61,8 @@ func _update_visual() -> void:
 
 ## The ingredient this provider hands out. Null when none is assigned.
 func provide_ingredient() -> Ingredient:
-	if ingredient == null:
-		return null
-	var copy := ingredient.duplicate() as Ingredient
-	copy.model_scene = ingredient.model_scene
-	return copy
-
-
-func _ensure_bug_scenes() -> void:
-	if ingredient == null:
-		return
-	if ingredient.id in ["bug", "frog_heart"] and ingredient.model_scenes.is_empty() and ingredient.model_scene == null:
-		for path in DEFAULT_BUG_SCENES:
-			if ResourceLoader.exists(path):
-				var packed := load(path) as PackedScene
-				if packed != null:
-					ingredient.model_scenes.append(packed)
-
-
-func _pick_next_model_scene() -> void:
-	if ingredient != null and not ingredient.model_scenes.is_empty():
-		ingredient.model_scene = ingredient.model_scenes.pick_random()
+	_sync_ingredient()
+	return ingredient
 
 
 ## The player picks the provided ingredient up into its ingredient holder.

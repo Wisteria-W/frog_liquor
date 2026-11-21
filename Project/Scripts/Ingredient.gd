@@ -11,8 +11,6 @@ extends Resource
 @export var material_override: Material
 ## Optional 3D scene (.tscn, .glb) to instantiate instead of a mesh or fallback cube.
 @export var model_scene: PackedScene
-## Optional pool of 3D scenes to pick from when spawning this ingredient (e.g. bug variants).
-@export var model_scenes: Array[PackedScene] = []
 ## Scale applied to the visual node.
 @export var model_scale: Vector3 = Vector3.ONE
 ## Position offset relative to the station/holder slot.

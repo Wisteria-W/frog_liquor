@@ -8,11 +8,12 @@ resource_local_to_scene = true
 script = ExtResource("2_kv2i0")
 id = "water"
 display_name = "WATER"
-model_scenes = Array[PackedScene]([])
 model_scale = Vector3(1, 1, 1)
 model_offset = Vector3(0, 0, 0)
 fallback_color = Color(1, 1, 1, 0)
 
 [node name="WaterProvider" type="Node3D"]
 script = ExtResource("1_vrxyh")
+ingredient_id = "water"
+ingredient_name = "WATER"
 ingredient = SubResource("Resource_water")
