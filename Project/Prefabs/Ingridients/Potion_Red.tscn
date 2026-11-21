@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dredglasspot1"]
+
+[ext_resource type="ArrayMesh" uid="uid://cxva1te1qfnpi" path="res://Mesh/bar_glass_with_red.obj" id="1_rglass"]
+
+[node name="Potion_Red" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_rglass")
