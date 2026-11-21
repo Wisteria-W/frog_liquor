@@ -1,19 +1,24 @@
-class_name Customer
 extends PotionConsumer
+class_name Customer
 
-## A customer — the potion consumer in the world. The player never
-## consumes potions itself; it brews them, carries only one at a time
-## and hands them to customers.
+@export var customer_manager : Node3D
+@export var waiting_graphic : Node3D
+
+@export var desired_potion: String = ""
+var potion_recieved : Potion
+
+var is_waiting : bool = false
 
 signal served(potion: Potion, customer: Customer)
-
-## When set, the customer only accepts the potion with this id.
-@export var desired_potion: String = ""
-
+func _process(delta):
+	if is_waiting:
+		waiting_graphic.visible = true
+	else:
+		waiting_graphic.visible = false
+		pass
 
 func _init() -> void:
 	interaction_prompt = "Serve potion"
-
 
 func _consume(potion: Potion) -> bool:
 	if desired_potion != "" and potion.id != desired_potion:

@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://Scripts/tile.gd" id="1_1ydhk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sglrx"]
-size = Vector3(0.35, 2, 0.35)
+size = Vector3(0.5, 2, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3difk"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8622j"]
-size = Vector3(0.35, 0.35, 0.35)
+size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xdswn"]
 size = Vector3(0.35, 0.35, 0.35)
