@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="Frog Liquior"
+run/main_scene="res://Prefabs/Player.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+PotionService="*res://Scripts/potion_service.gd"
 
 [input]
 
