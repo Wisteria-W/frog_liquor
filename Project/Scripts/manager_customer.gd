@@ -10,8 +10,9 @@ var customer_resources : Array[PackedScene]
 @export var customer_spawn_cooldown : float = 30.0
 @export var customer_spawn_timer : Timer
 
-var customers : Array[Node3D]
+@export var audio_customer_leave : AudioStreamPlayer
 
+var customers : Array[Node3D]
 func _ready():
 	customer_spawn_timer.wait_time = customer_spawn_cooldown
 	customer_spawn_timer.start()
@@ -45,6 +46,9 @@ func _on_customer_served(_potion: Potion, customer: Customer):
 	_remove_customer(customer, true)
 
 func _remove_customer(customer : Customer, is_right : bool):
+	audio_customer_leave.stop()
+	audio_customer_leave.pitch_scale = randf_range(0.97, 1.03)
+	audio_customer_leave.play()
 	if customer.is_connected("served", _on_customer_served):
 		customer.disconnect("served", _on_customer_served)
 	customers.erase(customer)
