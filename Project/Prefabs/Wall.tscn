@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://o2xry017qlsr"]
 
-[ext_resource type="ArrayMesh" uid="uid://cmr25pnr1mqt2" path="res://Mesh/bar_wall_straight.obj" id="1_ho6wk"]
+[ext_resource type="ArrayMesh" uid="uid://dm6r4fgx3ednd" path="res://Mesh/bar_wall_straight.obj" id="1_ho6wk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wwd4h"]
 size = Vector3(1, 1, 0.5)

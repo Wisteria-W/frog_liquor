@@ -2,13 +2,10 @@
 
 [ext_resource type="Script" path="res://Scripts/customer.gd" id="1_vkbyq"]
 [ext_resource type="ArrayMesh" uid="uid://7uxkssw67hbc" path="res://Mesh/frogliq4.obj" id="2_phcyr"]
-[ext_resource type="Texture2D" uid="uid://bt3jmie0uyrmt" path="res://icon.svg" id="3_81nj7"]
+[ext_resource type="Texture2D" uid="uid://b4aamdnpoiokf" path="res://Sprites/spr_customer_wait_01.png" id="3_jolan"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x13bg"]
 size = Vector3(0.35, 0.35, 0.35)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_interact"]
-size = Vector3(0.5, 1.0, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xxrjh"]
 vertex_color_use_as_albedo = true
@@ -36,6 +33,9 @@ _data = {
 "anim_spawn": SubResource("Animation_6mgis")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_interact"]
+size = Vector3(0.5, 1, 0.5)
+
 [node name="Customer" type="CharacterBody3D" node_paths=PackedStringArray("customer_mesh", "waiting_graphic")]
 script = ExtResource("1_vkbyq")
 customer_mesh_paths = Array[String](["res://Mesh/frogliq1.obj", "res://Mesh/frogliq2.obj", "res://Mesh/frogliq3.obj", "res://Mesh/frogb5barman.obj"])
@@ -51,10 +51,10 @@ material_override = SubResource("StandardMaterial3D_xxrjh")
 mesh = ExtResource("2_phcyr")
 
 [node name="WaitingIndicator" type="Sprite3D" parent="."]
-transform = Transform3D(0.215, 0, 0, 0, 0.215, 0, 0, 0, 0.215, 0, 0.62427, 0)
+transform = Transform3D(0.615, 0, 0, 0, 0.615, 0, 0, 0, 0.615, 0, 0.62427, -0.1)
 visible = false
 billboard = 1
-texture = ExtResource("3_81nj7")
+texture = ExtResource("3_jolan")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

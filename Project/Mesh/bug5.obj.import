@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dwaaannx7h8nw"
+path="res://.godot/imported/bug5.obj-4011ec3554c0a700db3aaa64bb042b41.mesh"
+
+[deps]
+
+files=["res://.godot/imported/bug5.obj-4011ec3554c0a700db3aaa64bb042b41.mesh"]
+
+source_file="res://Mesh/bug5.obj"
+dest_files=["res://.godot/imported/bug5.obj-4011ec3554c0a700db3aaa64bb042b41.mesh", "res://.godot/imported/bug5.obj-4011ec3554c0a700db3aaa64bb042b41.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

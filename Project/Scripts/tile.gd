@@ -13,3 +13,8 @@ func _process(delta):
 		mesh.visible = true
 	else:
 		mesh.visible = false
+
+func _input(event):
+	if event.is_action_pressed("Interaction") && is_selected:
+		if interactor:
+			interactor.interact()
