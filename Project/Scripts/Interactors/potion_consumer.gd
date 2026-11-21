@@ -10,6 +10,12 @@ signal potion_consumed(potion: Potion, consumer: PotionConsumer)
 @export var max_potions: int = -1
 
 var consumed: Array[Potion] = []
+var _item_cube: MeshInstance3D
+
+
+func _ready() -> void:
+	_item_cube = _create_item_cube(Vector3(0, 0.55, 0), Vector3(0.18, 0.22, 0.18))
+	_item_cube.visible = false
 
 
 func can_interact() -> bool:
@@ -24,6 +30,10 @@ func consume_potion(potion: Potion) -> bool:
 	if not _consume(potion):
 		return false
 	consumed.append(potion)
+	if _item_cube != null:
+		_item_cube.visible = true
+		if _item_cube.material_override is StandardMaterial3D:
+			(_item_cube.material_override as StandardMaterial3D).albedo_color = color_for_id(potion.id)
 	potion_consumed.emit(potion, self)
 	return true
 

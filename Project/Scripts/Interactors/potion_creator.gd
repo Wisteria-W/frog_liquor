@@ -14,6 +14,12 @@ signal potion_created(potion: Potion, creator: PotionCreator)
 
 var _used := false
 var _created: Potion
+var _item_cube: MeshInstance3D
+
+
+func _ready() -> void:
+	_item_cube = _create_item_cube(Vector3(0, 0.55, 0), Vector3(0.18, 0.22, 0.18))
+	_update_visual()
 
 
 func can_interact() -> bool:
@@ -27,7 +33,16 @@ func interact() -> void:
 	if single_use:
 		_used = true
 	_created = create_potion()
+	_update_visual()
 	potion_created.emit(_created, self)
+
+
+func _update_visual() -> void:
+	if _item_cube == null:
+		return
+	_item_cube.visible = potion != null and can_interact()
+	if potion != null and _item_cube.material_override is StandardMaterial3D:
+		(_item_cube.material_override as StandardMaterial3D).albedo_color = color_for_id(potion.id)
 
 
 ## The potion this creator produces. Override to create potions

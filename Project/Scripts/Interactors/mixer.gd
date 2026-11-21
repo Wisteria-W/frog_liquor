@@ -8,9 +8,16 @@ extends IngredientConsumer
 
 signal brewed(potion: Potion)
 
+var _slot_cubes: Array[MeshInstance3D] = []
+
 
 func _ready() -> void:
+	_slot_cubes = [
+		_create_item_cube(Vector3(-0.12, 0.55, 0), Vector3(0.14, 0.14, 0.14)),
+		_create_item_cube(Vector3(0.12, 0.55, 0), Vector3(0.14, 0.14, 0.14)),
+	]
 	_update_prompt()
+	_update_slot_cubes()
 
 
 ## Interacting with the mixer: offering an ingredient feeds the slots,
@@ -47,6 +54,7 @@ func interact_with(player: PlayerInteractor) -> void:
 func brew() -> Potion:
 	var potion := PotionService.brew()
 	_update_prompt()
+	_update_slot_cubes()
 	brewed.emit(potion)
 	return potion
 
@@ -56,8 +64,20 @@ func _consume(ingredient: Ingredient) -> bool:
 	if accepted:
 		print("Added %s to mixer (%d/%d)" % [ingredient.display_name, PotionService.slots.size(), PotionService.MAX_INGREDIENTS])
 	_update_prompt()
+	_update_slot_cubes()
 	return accepted
 
 
 func _update_prompt() -> void:
 	interaction_prompt = "Brew" if PotionService.can_brew() else "Add ingredient"
+
+
+func _update_slot_cubes() -> void:
+	for i in range(_slot_cubes.size()):
+		var cube := _slot_cubes[i]
+		if i < PotionService.slots.size():
+			cube.visible = true
+			if cube.material_override is StandardMaterial3D:
+				(cube.material_override as StandardMaterial3D).albedo_color = color_for_id(PotionService.slots[i])
+		else:
+			cube.visible = false

@@ -17,6 +17,12 @@ signal potion_taken(potion: Potion, holder: PotionHolder)
 var exclusive_with = null
 
 var held: Array[Potion] = []
+var _item_cube: MeshInstance3D
+
+
+func _ready() -> void:
+	_item_cube = _create_item_cube(Vector3(0, 0.6, 0), Vector3(0.18, 0.22, 0.18))
+	_update_visual()
 
 
 func is_empty() -> bool:
@@ -37,6 +43,7 @@ func hold(potion: Potion) -> bool:
 	if potion == null or not can_hold():
 		return false
 	held.append(potion)
+	_update_visual()
 	potion_held.emit(potion, self)
 	return true
 
@@ -46,8 +53,18 @@ func take() -> Potion:
 	if held.is_empty():
 		return null
 	var potion: Potion = held.pop_back()
+	_update_visual()
 	potion_taken.emit(potion, self)
 	return potion
+
+
+func _update_visual() -> void:
+	if _item_cube == null:
+		return
+	var current := peek()
+	_item_cube.visible = current != null
+	if current != null and _item_cube.material_override is StandardMaterial3D:
+		(_item_cube.material_override as StandardMaterial3D).albedo_color = color_for_id(current.id)
 
 
 ## The most recently held potion, without removing it. Null when empty.
