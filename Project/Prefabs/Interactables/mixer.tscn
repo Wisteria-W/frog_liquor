@@ -1,6 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnpjw3onxnq26"]
+[gd_scene load_steps=4 format=3 uid="uid://bnpjw3onxnq26"]
 
 [ext_resource type="Script" path="res://Scripts/Interactors/mixer.gd" id="1_q0pap"]
+[ext_resource type="ArrayMesh" uid="uid://cn1rkdh5w5b63" path="res://Mesh/bar_blender_01.obj" id="2_rtv2u"]
+[ext_resource type="ArrayMesh" uid="uid://bh1gf24sixwgg" path="res://Mesh/bar_blender_filling_01.obj" id="3_khe67"]
 
-[node name="Mixer" type="Node3D"]
+[node name="Mixer" type="Node3D" node_paths=PackedStringArray("mesh_filling")]
 script = ExtResource("1_q0pap")
+mesh_filling = NodePath("MeshBlenderFilling")
+
+[node name="MeshBlenderEmpty" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.532, 0, 0, 0, 0.709, 0, 0, 0, 2.532, 0, 0.455139, 0)
+mesh = ExtResource("2_rtv2u")
+
+[node name="MeshBlenderFilling" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
+mesh = ExtResource("3_khe67")

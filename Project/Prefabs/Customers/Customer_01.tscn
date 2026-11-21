@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cnjcea47clyop"]
+[gd_scene load_steps=8 format=3 uid="uid://cnjcea47clyop"]
 
 [ext_resource type="Script" path="res://Scripts/customer.gd" id="1_vkbyq"]
 [ext_resource type="ArrayMesh" uid="uid://7uxkssw67hbc" path="res://Mesh/frogliq4.obj" id="2_phcyr"]
-[ext_resource type="Texture2D" uid="uid://b4aamdnpoiokf" path="res://Sprites/spr_customer_wait_01.png" id="3_jolan"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x13bg"]
 size = Vector3(0.35, 0.35, 0.35)
@@ -54,7 +53,6 @@ mesh = ExtResource("2_phcyr")
 transform = Transform3D(0.615, 0, 0, 0, 0.615, 0, 0, 0, 0.615, 0, 0.62427, -0.1)
 visible = false
 billboard = 1
-texture = ExtResource("3_jolan")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
