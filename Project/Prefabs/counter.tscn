@@ -8,6 +8,9 @@ resource_local_to_scene = true
 script = ExtResource("2_qa5ik")
 id = "water"
 display_name = "WATER"
+model_scale = Vector3(1, 1, 1)
+model_offset = Vector3(0, 0, 0)
+fallback_color = Color(1, 1, 1, 0)
 
 [node name="Counter" type="Node3D"]
 

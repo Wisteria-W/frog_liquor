@@ -29,8 +29,57 @@ func _create_item_cube(offset: Vector3 = Vector3(0, 0.55, 0), cube_size: Vector3
 	var mat := StandardMaterial3D.new()
 	cube.material_override = mat
 	cube.position = offset
+	cube.set_meta("base_offset", offset)
+	cube.set_meta("fallback_size", cube_size)
 	add_child(cube)
 	return cube
+
+
+## Updates an item visual node from an Ingredient or Potion resource (or null to hide).
+## Uses `model_scene` (PackedScene) or `mesh` (Mesh) when assigned on the resource,
+## and automatically falls back to the small colored cube when no 3D model is set.
+func _apply_item_visual(cube: MeshInstance3D, item: Resource) -> void:
+	if cube == null:
+		return
+	for child in cube.get_children():
+		child.queue_free()
+	if item == null:
+		cube.visible = false
+		return
+
+	cube.visible = true
+	var base_offset: Vector3 = cube.get_meta("base_offset", cube.position)
+	var fallback_size: Vector3 = cube.get_meta("fallback_size", Vector3(0.16, 0.16, 0.16))
+	var item_offset: Vector3 = item.get("model_offset") if item.get("model_offset") != null else Vector3.ZERO
+	var item_scale: Vector3 = item.get("model_scale") if item.get("model_scale") != null else Vector3.ONE
+	cube.position = base_offset + item_offset
+	cube.scale = item_scale
+
+	var custom_scene: PackedScene = item.get("model_scene")
+	var custom_mesh: Mesh = item.get("mesh")
+	var custom_mat: Material = item.get("material_override")
+
+	if custom_scene != null:
+		cube.mesh = null
+		cube.material_override = null
+		var instance := custom_scene.instantiate()
+		cube.add_child(instance)
+	elif custom_mesh != null:
+		cube.mesh = custom_mesh
+		cube.material_override = custom_mat
+	else:
+		var box := cube.mesh as BoxMesh
+		if box == null:
+			box = BoxMesh.new()
+			box.size = fallback_size
+			cube.mesh = box
+		var mat := cube.material_override as StandardMaterial3D
+		if mat == null:
+			mat = StandardMaterial3D.new()
+			cube.material_override = mat
+		var fallback_col: Color = item.get("fallback_color") if item.get("fallback_color") != null else Color(1, 1, 1, 0)
+		var item_id: String = item.get("id") if item.get("id") != null else ""
+		mat.albedo_color = fallback_col if fallback_col.a > 0.0 else color_for_id(item_id)
 
 
 static func color_for_id(id: String) -> Color:

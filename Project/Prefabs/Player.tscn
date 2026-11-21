@@ -23,7 +23,9 @@ script = ExtResource("1_nc2x1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_d4lr6")
 
-[node name="Mesh" type="Node3D" parent="."]
+[node name="Mesh" type="Node3D" parent="." node_paths=PackedStringArray("player_mesh")]
+script = ExtResource("2_dx2tw")
+player_mesh = NodePath(".")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(0.052, 0, 0, 0, 0.052, 0, 0, 0, 0.052, 0, 0.05, 0.1)

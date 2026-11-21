@@ -40,9 +40,7 @@ func interact() -> void:
 func _update_visual() -> void:
 	if _item_cube == null:
 		return
-	_item_cube.visible = potion != null and can_interact()
-	if potion != null and _item_cube.material_override is StandardMaterial3D:
-		(_item_cube.material_override as StandardMaterial3D).albedo_color = color_for_id(potion.id)
+	_apply_item_visual(_item_cube, potion if can_interact() else null)
 
 
 ## The potion this creator produces. Override to create potions

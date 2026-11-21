@@ -30,10 +30,7 @@ func consume_potion(potion: Potion) -> bool:
 	if not _consume(potion):
 		return false
 	consumed.append(potion)
-	if _item_cube != null:
-		_item_cube.visible = true
-		if _item_cube.material_override is StandardMaterial3D:
-			(_item_cube.material_override as StandardMaterial3D).albedo_color = color_for_id(potion.id)
+	_apply_item_visual(_item_cube, potion)
 	potion_consumed.emit(potion, self)
 	return true
 

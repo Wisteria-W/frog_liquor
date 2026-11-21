@@ -18,8 +18,9 @@ func _ready():
 	customer_spawn_timer.connect("timeout", _create_customer)
 	
 	for path in customer_paths:
-		var customer_res = load(path)
-		customer_resources.append(customer_res)
+		if ResourceLoader.exists(path):
+			var customer_res = load(path)
+			customer_resources.append(customer_res)
 
 func _input(event):
 	if event.is_action_pressed("AddCutsomer"):
@@ -29,7 +30,7 @@ func _input(event):
 			_remove_customer(customers[0], false)
 
 func _create_customer():
-	if customers.size() > max_customer_count || customer_paths.size() <= 0:
+	if customers.size() > max_customer_count || customer_resources.size() <= 0:
 		return
 	var customer_instance = customer_resources.pick_random().instantiate()
 	customer_instance.position = customer_origin + customer_offset * customers.size()

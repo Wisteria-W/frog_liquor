@@ -61,10 +61,7 @@ func take() -> Ingredient:
 func _update_visual() -> void:
 	if _item_cube == null:
 		return
-	var current := peek()
-	_item_cube.visible = current != null
-	if current != null and _item_cube.material_override is StandardMaterial3D:
-		(_item_cube.material_override as StandardMaterial3D).albedo_color = color_for_id(current.id)
+	_apply_item_visual(_item_cube, peek())
 
 
 ## The most recently held ingredient, without removing it. Null when empty.

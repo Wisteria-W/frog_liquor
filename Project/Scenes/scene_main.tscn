@@ -1,13 +1,28 @@
-[gd_scene load_steps=10 format=3 uid="uid://fybmebg4g7wn"]
+[gd_scene load_steps=15 format=3 uid="uid://fybmebg4g7wn"]
 
-[ext_resource type="AudioStream" uid="uid://b8jsfri5ls2di" path="res://Sounds/sound_maintheme.mp3" id="1_6rign"]
+[ext_resource type="AudioStream" uid="uid://be67gp1ojy72i" path="res://Sounds/sound_maintheme.mp3" id="1_6rign"]
 [ext_resource type="PackedScene" uid="uid://d2m5dx7ffhj07" path="res://Prefabs/Player.tscn" id="2_fylqf"]
 [ext_resource type="PackedScene" uid="uid://cqajvilli237c" path="res://Prefabs/Managers/Manager_Customer.tscn" id="3_0byua"]
 [ext_resource type="PackedScene" uid="uid://o2xry017qlsr" path="res://Prefabs/Wall.tscn" id="4_880n7"]
 [ext_resource type="ArrayMesh" uid="uid://dd47n4sojslu6" path="res://Mesh/ground_tile_white.obj" id="5_iqsbu"]
 [ext_resource type="ArrayMesh" uid="uid://dxauaong18w62" path="res://Mesh/ground_tile_black.obj" id="6_w8ta4"]
-[ext_resource type="ArrayMesh" uid="uid://ikuu6xlbj5sm" path="res://Mesh/bar_counter_straight.obj" id="7_3y3wc"]
+[ext_resource type="ArrayMesh" uid="uid://bhkx5w85frdi6" path="res://Mesh/bar_counter_straight.obj" id="7_3y3wc"]
 [ext_resource type="PackedScene" uid="uid://8k45qvmqn1ob" path="res://Prefabs/Tile_Test.tscn" id="7_v1nd5"]
+[ext_resource type="Script" path="res://Scripts/Interactors/ingredient_provider.gd" id="8_ingpr"]
+[ext_resource type="Script" path="res://Scripts/Ingredient.gd" id="9_ingrd"]
+[ext_resource type="Script" path="res://Scripts/Interactors/mixer.gd" id="10_mixer"]
+
+[sub_resource type="Resource" id="Resource_water"]
+resource_local_to_scene = true
+script = ExtResource("9_ingrd")
+id = "water"
+display_name = "WATER"
+
+[sub_resource type="Resource" id="Resource_frog_heart"]
+resource_local_to_scene = true
+script = ExtResource("9_ingrd")
+id = "frog_heart"
+display_name = "FROG HEART"
 
 [sub_resource type="Environment" id="Environment_e3kdq"]
 background_mode = 1
@@ -492,14 +507,28 @@ mesh = ExtResource("7_3y3wc")
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, 2)
 mesh = ExtResource("7_3y3wc")
 
-[node name="Tile" parent="." instance=ExtResource("7_v1nd5")]
+[node name="Tile" parent="." node_paths=PackedStringArray("interactor") instance=ExtResource("7_v1nd5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+interactor = NodePath("WaterProvider")
 
-[node name="Tile2" parent="." instance=ExtResource("7_v1nd5")]
+[node name="WaterProvider" type="Node3D" parent="Tile"]
+script = ExtResource("8_ingpr")
+ingredient = SubResource("Resource_water")
+
+[node name="Tile2" parent="." node_paths=PackedStringArray("interactor") instance=ExtResource("7_v1nd5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -2)
+interactor = NodePath("FrogHeartProvider")
 
-[node name="Tile3" parent="." instance=ExtResource("7_v1nd5")]
+[node name="FrogHeartProvider" type="Node3D" parent="Tile2"]
+script = ExtResource("8_ingpr")
+ingredient = SubResource("Resource_frog_heart")
+
+[node name="Tile3" parent="." node_paths=PackedStringArray("interactor") instance=ExtResource("7_v1nd5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
+interactor = NodePath("Mixer")
+
+[node name="Mixer" type="Node3D" parent="Tile3"]
+script = ExtResource("10_mixer")
 
 [node name="Tile4" parent="." instance=ExtResource("7_v1nd5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -2)

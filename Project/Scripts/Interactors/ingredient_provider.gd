@@ -35,9 +35,7 @@ func interact() -> void:
 func _update_visual() -> void:
 	if _item_cube == null:
 		return
-	_item_cube.visible = ingredient != null and can_interact()
-	if ingredient != null and _item_cube.material_override is StandardMaterial3D:
-		(_item_cube.material_override as StandardMaterial3D).albedo_color = color_for_id(ingredient.id)
+	_apply_item_visual(_item_cube, ingredient if can_interact() else null)
 
 
 ## The ingredient this provider hands out. Null when none is assigned.
