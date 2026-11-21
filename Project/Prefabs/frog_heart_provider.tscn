@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cj8ra8vnukkbn"]
+[gd_scene load_steps=5 format=3 uid="uid://dfrogheartprv1"]
 
 [ext_resource type="Script" path="res://Scripts/Interactors/ingredient_provider.gd" id="1_p67qc"]
 [ext_resource type="Script" path="res://Scripts/Ingredient.gd" id="2_b21ft"]

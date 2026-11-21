@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cqajvilli237c"]
 
 [ext_resource type="Script" path="res://Scripts/manager_customer.gd" id="1_r0ydx"]
-[ext_resource type="AudioStream" uid="uid://0d1k736d3sdi" path="res://Sounds/sound_slurp.wav" id="2_qdv08"]
+[ext_resource type="AudioStream" uid="uid://ks803avqyuol" path="res://Sounds/sound_slurp.wav" id="2_qdv08"]
 
 [node name="CustomerManager" type="Node3D" node_paths=PackedStringArray("customer_spawn_timer", "audio_customer_leave")]
 script = ExtResource("1_r0ydx")

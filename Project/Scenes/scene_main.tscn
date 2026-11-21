@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dvass2etv3xvi"]
+[gd_scene load_steps=26 format=3 uid="uid://dvass2etv3xvi"]
 
 [ext_resource type="AudioStream" uid="uid://b76tb17ydg68" path="res://Sounds/sound_maintheme.mp3" id="1_6rign"]
 [ext_resource type="PackedScene" uid="uid://d2m5dx7ffhj07" path="res://Prefabs/Player.tscn" id="2_fylqf"]
@@ -10,11 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://8k45qvmqn1ob" path="res://Prefabs/Tile_Test.tscn" id="7_v1nd5"]
 [ext_resource type="Script" path="res://Scripts/Ingredient.gd" id="9_ingrd"]
 [ext_resource type="PackedScene" uid="uid://c23d0cl3jnmbx" path="res://Prefabs/Interactables/water_provider.tscn" id="9_oklgq"]
-[ext_resource type="PackedScene" uid="uid://cj8ra8vnukkbn" path="res://Prefabs/frog_heart_provider.tscn" id="11_v5y00"]
+[ext_resource type="PackedScene" path="res://Prefabs/frog_heart_provider.tscn" id="11_v5y00"]
 [ext_resource type="PackedScene" uid="uid://bnpjw3onxnq26" path="res://Prefabs/Interactables/mixer.tscn" id="12_i7h35"]
 [ext_resource type="PackedScene" uid="uid://destnx2013qqd" path="res://Prefabs/Ingridients/Ingridient_01.tscn" id="13_bbta2"]
 [ext_resource type="Script" path="res://Scripts/Interactors/potion_holder.gd" id="13_phold"]
-[ext_resource type="PackedScene" uid="uid://brc721f1vsj6p" path="res://Prefabs/Ingridients/Ingridient_02.tscn" id="14_6t3id"]
+[ext_resource type="ArrayMesh" uid="uid://d4dpt21y4pdwu" path="res://Mesh/bar_glass_with_water.obj" id="15_wmesh"]
+[ext_resource type="PackedScene" uid="uid://dyp30mkhcykag" path="res://Prefabs/Ingridients/Ingridient_Water.tscn" id="16_wscene"]
 
 [sub_resource type="Animation" id="Animation_n7cif"]
 resource_name = "anim_fade_in"
@@ -61,6 +62,8 @@ resource_local_to_scene = true
 script = ExtResource("9_ingrd")
 id = "water"
 display_name = "WATER"
+mesh = ExtResource("15_wmesh")
+model_scene = ExtResource("16_wscene")
 model_scale = Vector3(1, 1, 1)
 model_offset = Vector3(0, 0, 0)
 fallback_color = Color(1, 1, 1, 0)

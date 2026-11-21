@@ -46,6 +46,7 @@ func _apply_item_visual(cube: MeshInstance3D, item: Resource) -> void:
 	if cube == null:
 		return
 	for child in cube.get_children():
+		cube.remove_child(child)
 		child.queue_free()
 	if item == null:
 		cube.visible = false

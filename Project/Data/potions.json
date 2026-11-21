@@ -2,6 +2,8 @@
 	{
 		"id": "potion_red",
 		"display_name": "Red Booze",
-		"ingredients": ["frog_heart", "water"]
+		"ingredients": ["frog_heart", "water"],
+		"mesh": "res://Mesh/bar_glass_with_red.obj",
+		"model_scene": "res://Prefabs/Ingridients/Potion_Red.tscn"
 	}
 ]

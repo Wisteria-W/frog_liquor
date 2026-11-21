@@ -1,13 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://c23d0cl3jnmbx"]
+[gd_scene load_steps=6 format=3 uid="uid://c23d0cl3jnmbx"]
 
 [ext_resource type="Script" path="res://Scripts/Interactors/ingredient_provider.gd" id="1_vrxyh"]
 [ext_resource type="Script" path="res://Scripts/Ingredient.gd" id="2_kv2i0"]
+[ext_resource type="ArrayMesh" uid="uid://d4dpt21y4pdwu" path="res://Mesh/bar_glass_with_water.obj" id="3_wmesh"]
+[ext_resource type="PackedScene" uid="uid://dyp30mkhcykag" path="res://Prefabs/Ingridients/Ingridient_Water.tscn" id="4_wscene"]
 
 [sub_resource type="Resource" id="Resource_water"]
 resource_local_to_scene = true
 script = ExtResource("2_kv2i0")
 id = "water"
 display_name = "WATER"
+mesh = ExtResource("3_wmesh")
+model_scene = ExtResource("4_wscene")
 model_scale = Vector3(1, 1, 1)
 model_offset = Vector3(0, 0, 0)
 fallback_color = Color(1, 1, 1, 0)
@@ -16,4 +20,5 @@ fallback_color = Color(1, 1, 1, 0)
 script = ExtResource("1_vrxyh")
 ingredient_id = "water"
 ingredient_name = "WATER"
+ingredient_model = ExtResource("4_wscene")
 ingredient = SubResource("Resource_water")
