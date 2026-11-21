@@ -16,6 +16,9 @@ size = Vector3(0.35, 0.35, 0.35)
 [node name="Mixer" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.336259, 0)
 script = ExtResource("1_wsnug")
+max_ingredients = null
+interaction_prompt = null
+enabled = null
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 4

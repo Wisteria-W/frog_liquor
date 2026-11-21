@@ -44,6 +44,12 @@ script = ExtResource("5_hjogo")
 
 [node name="PotionHolder" type="Node3D" parent="PlayerInteractor"]
 script = ExtResource("6_d1wly")
+capacity = null
+interaction_prompt = null
+enabled = null
 
 [node name="IngredientHolder" type="Node3D" parent="PlayerInteractor"]
 script = ExtResource("7_1x30h")
+capacity = null
+interaction_prompt = null
+enabled = null
